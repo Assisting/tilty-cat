@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>tilty_cat control panel</title>
+
+	<script>
+	window.onload = function() {
+	  var ajaxReq = new XMLHttpRequest();
+	  var crocCheckbox = document.querySelector('input[value="setCrocMode"]');
+
+	  function resListener () {
+	    console.log(this.responseText);
+	    crocCheckbox.checked = (this.responseText == "true");
+	  }
+
+	  ajaxReq.addEventListener("load", resListener);
+	  ajaxReq.open("GET", "http://writeonlymedia.com/tilty_cat/croc_mode/");
+	  ajaxReq.send();	
+
+	  function refreshOnChange () {
+	    document.location.reload(true)
+	  }
+
+	  crocCheckbox.onchange = function() {
+	    var isChecked = crocCheckbox.checked
+	    if(isChecked) {
+	      ajaxReq.addEventListener("load", refreshOnChange);
+	      ajaxReq.open("POST", "http://writeonlymedia.com/tilty_cat/croc_mode/1");
+	      ajaxReq.send();
+	    } else {
+	      ajaxReq.addEventListener("load", refreshOnChange);
+	      ajaxReq.open("POST", "http://writeonlymedia.com/tilty_cat/croc_mode/0");
+	      ajaxReq.send();   
+	    }
+	  };
+	};
+
+	</script>
+</head>
+
+<body>
+        <input type="checkbox" id="setCrocMode" value="setCrocMode">
+        <label for="setCrocMode"> Crocodile Override Mode (do not use)</label>
+</body>
+</html>
+
