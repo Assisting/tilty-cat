@@ -30,6 +30,12 @@ var sendIndex = function (req, res) {
 	res.sendFile(__dirname+'/index.html')
 }
 
+var dogReq = function (req, res) {
+	filename = '/dog.png';
+
+	rotate(req, res);
+}
+
 var rotate = function (req, res) {
 	var degrees = Number.parseInt(req.params.degree);
 
@@ -61,5 +67,8 @@ app.get('/tilty_cat/croc_mode/', getCrocMode);
 app.get('/tilty_cat/croc_mode/index.html', sendIndex);
 
 app.post('/tilty_cat/croc_mode/:bool', setCrocMode);
+
+// Is this scope creep
+app.get('/tilty_dog/:degree.png', dogReq);
 
 app.listen(port, () => console.log(`Now listening on port ${port}`))
