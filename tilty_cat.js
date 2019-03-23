@@ -36,6 +36,12 @@ var dogReq = function (req, res) {
 	rotate(req, res);
 }
 
+var catReq = function (req, res) {
+	filename = '/cat.png';
+
+	rotate(req, res);
+}
+
 var rotate = function (req, res) {
 	var degrees = Number.parseInt(req.params.degree);
 
@@ -60,7 +66,7 @@ var rotate = function (req, res) {
 	); // End stream()
 }
 
-app.get('/tilty_cat/:degree.png', rotate);
+app.get('/tilty_cat/:degree.png', catReq);
 
 app.get('/tilty_cat/croc_mode/', getCrocMode);
 
