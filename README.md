@@ -2,6 +2,6 @@
 
 Tilts the cat emoji to an arbitrary, user-supplied angle.
 
-Works with the Google graphics package for Go. Cat emoji now included.
+Works with a mirror of the old Google graphics package for Go. Cat emoji now included.
 
-See it in action somewhere, sometime.
+See it in action at https://tiltycat.com/15.png
