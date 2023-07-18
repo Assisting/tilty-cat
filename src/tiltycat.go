@@ -20,20 +20,39 @@ func degToRad(degrees float64) (radians float64) {
 	return
 }
 
+type Point struct {
+	x float64
+	y float64
+}
+
+// Finds the new location of a point on a rectangle that has
+// been rotated.
+func calcLocationOfRotatedPoint(location, centreOfRotation Point, transSin, transCos float64) (newLocation Point) {
+	return Point{
+		x: (centreOfRotation.x + (location.x-centreOfRotation.x)*transCos + (location.y-centreOfRotation.y)*transSin),
+		y: (centreOfRotation.y - (location.x-centreOfRotation.x)*transSin + (location.y-centreOfRotation.y)*transCos),
+	}
+}
+
+// Calculates the bounding box of a square of width "width"
+// rotated clockwise by "theta", in radians.
 func boundingBox(theta float64, width float64) (minX, minY, maxX, maxY int) {
 	s := math.Sin(theta)
 	c := math.Cos(theta)
 
-	var x0, y0 = width / 2, width / 2
-	var x1, y1 float64 = (x0 + (0-x0)*c + (0-y0)*s), (y0 - (0-x0)*s + (0-y0)*c)
-	var x2, y2 float64 = (x0 + (0-x0)*c + (width-y0)*s), (y0 - (0-x0)*s + (width-y0)*c)
-	var x3, y3 float64 = (x0 + (width-x0)*c + (0-y0)*s), (y0 - (width-x0)*s + (0-y0)*c)
-	var x4, y4 float64 = (x0 + (width-x0)*c + (width-y0)*s), (y0 - (width-x0)*s + (width-y0)*c)
+	centre := Point{
+		x: width / 2,
+		y: width / 2,
+	}
+	point1 := calcLocationOfRotatedPoint(Point{0, 0}, centre, s, c)
+	point2 := calcLocationOfRotatedPoint(Point{0, width}, centre, s, c)
+	point3 := calcLocationOfRotatedPoint(Point{width, 0}, centre, s, c)
+	point4 := calcLocationOfRotatedPoint(Point{width, width}, centre, s, c)
 
-	minX = int(math.Floor(math.Min(math.Min(x1, x2), math.Min(x3, x4))))
-	minY = int(math.Floor(math.Min(math.Min(y1, y2), math.Min(y3, y4))))
-	maxX = int(math.Ceil(math.Max(math.Max(x1, x2), math.Max(x3, x4))))
-	maxY = int(math.Ceil(math.Max(math.Max(y1, y2), math.Max(y3, y4))))
+	minX = int(math.Floor(math.Min(math.Min(point1.x, point2.x), math.Min(point3.x, point4.x))))
+	minY = int(math.Floor(math.Min(math.Min(point1.y, point2.y), math.Min(point3.y, point4.y))))
+	maxX = int(math.Ceil(math.Max(math.Max(point1.x, point2.x), math.Max(point3.x, point4.x))))
+	maxY = int(math.Ceil(math.Max(math.Max(point1.y, point2.y), math.Max(point3.y, point4.y))))
 	return
 }
 
