@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/graphics-go/graphics"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -102,7 +103,8 @@ func rotationHandler(c *gin.Context) {
 func main() {
 	router := gin.Default()
 
-	router.GET("/:angle", rotationHandler)
+	router.GET("/api/:angle", rotationHandler)
+	router.Use(static.Serve("/", static.LocalFile("./public", true)))
 
 	err := router.Run()
 	log.Fatal(err)
