@@ -115,11 +115,18 @@
 
             slider.oninput = function() {
                 fine.value = this.value
+                catImage.style.transform=(`rotate(${this.value-currentAngle}deg)`);
                 shareBox.value = `https://tiltycat.com/api/${this.value}.png`
             }
             slider.onchange = function() {
                 catImage.src = `https://tiltycat.com/api/${this.value}.png`
+                currentAngle = this.value
             }
+            
+            catImage.onload = function() {
+                catImage.style.transform="";
+            }
+
             fine.oninput = function() {
                 slider.value = this.value
                 shareBox.value = `https://tiltycat.com/api/${this.value}.png`
