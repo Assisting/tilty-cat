@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TiltyCat.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+        <link rel="icon" type="image/png" href="https://tiltycat.com/favicon.ico"/>
+
+        <meta property="og:url"         content="https://tiltycat.com/">
+        <meta property="og:type"        content="website">
+        <meta property="og:title"       content="TiltyCat.com">
+        <meta property="og:description" content="This cat's on a roll">
+        <meta property="og:image"       content="https://tiltycat.com/img/tiltycat-thumbnail.png">
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
+
+        <style>
+            .centred {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: block;
+                width: 240px;
+                margin: auto;
+            }
+            .cat {
+                display: block;
+                margin: 0 auto;
+            }
+            .input-group {
+                width: 240px;
+            }
+            .input-range {
+                width: 77%;
+                margin-left: 0;
+            }
+            .input-field {
+                width: 20%;
+                margin-right: 0;
+            }
+            .input-output {
+                width: 99%
+            }
+            .centred-but-not-both-ways {
+                position: fixed;
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, -4em);
+            }
+            .icon {
+                display: inline-block;
+                height: 0.9em;
+                width: 0.9em;
+            }
+            div {
+                font-family: 'Roboto', sans-serif;
+            }
+            h1 {
+                color: #36454F;
+            }
+            p {
+                color: 	#727472;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="centred">
+            <div class="input-group">
+                <img src="https://tiltycat.com/api/0.png" class="cat" id="catImage"/>
+            </div>
+            <br><br>
+            <div class="input-group">
+                <input type="range" min="0" max="359" value="0" class="input-range" id="selectAngleRange">
+                <input type="number" min="0" max="359" value="0" class="input-field" id="selectAngleFine">
+            </div>
+            <br>
+            <div class="input-group">
+                <input type="text" value="https://tiltycat.com/api/0.png" class="input-output" id="urlShareBox" disabled>
+            </div>
+        </div>
+        <div class="centred-but-not-both-ways">
+            <p>with <a href="https://www.aspca.org/"><3 and 🐱</a> - Erik&nbsp;LaBine - 2023 - <a href="https://github.com/Assisting/tilty-cat"><img class="icon" src="img/github-mark.png"></a></p>
+        </div>
+
+        <script>
+            var slider = document.getElementById("selectAngleRange");
+            var fine = document.getElementById("selectAngleFine");
+            var shareBox = document.getElementById("urlShareBox");
+            var catImage = document.getElementById("catImage");
+
+            slider.oninput = function() {
+                fine.value = this.value
+                shareBox.value = `https://tiltycat.com/api/${this.value}.png`
+            }
+            slider.onchange = function() {
+                catImage.src = `https://tiltycat.com/api/${this.value}.png`
+            }
+            fine.oninput = function() {
+                slider.value = this.value
+                shareBox.value = `https://tiltycat.com/api/${this.value}.png`
+            }
+            fine.onchange = function() {
+                catImage.src = `https://tiltycat.com/api/${this.value}.png`
+            }
+        </script>
+    </body>
+</html>
